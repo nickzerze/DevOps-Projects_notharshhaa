@@ -1,6 +1,6 @@
 @Library('Shared') _
 pipeline {
-    agent {label 'akbagent'}
+    agent {label 'Node'}
     
     environment{
         SONAR_HOME = tool "Sonar"
@@ -29,13 +29,16 @@ pipeline {
             }
         }
         
-        stage('Git: Code Checkout') {
-            steps {
-                script{
-                    code_checkout("https://github.com/nickzerze/DevOps-Projects_notharshhaa/DevOps-Project-40/Devops-Mega-Project-Jenkins-ArgoCD-EKS","master")
-                }
-            }
+stage('Git: Code Checkout') {
+    steps {
+        script {
+            code_checkout(
+                "https://github.com/nickzerze/DevOps-Projects_notharshhaa.git",
+                "master"
+            )
         }
+    }
+}
         
         stage("Trivy: Filesystem scan"){
             steps{
@@ -74,7 +77,7 @@ pipeline {
                 stage("Backend env setup"){
                     steps {
                         script{
-                            dir("Automations"){
+                            dir("DevOps-Project-40/Devops-Mega-Project-Jenkins-ArgoCD-EKS/Automations"){
                                 sh "bash updatebackendnew.sh"
                             }
                         }
@@ -84,7 +87,7 @@ pipeline {
                 stage("Frontend env setup"){
                     steps {
                         script{
-                            dir("Automations"){
+                            dir("DevOps-Project-40/Devops-Mega-Project-Jenkins-ArgoCD-EKS/Automations"){
                                 sh "bash updatefrontendnew.sh"
                             }
                         }
@@ -96,11 +99,11 @@ pipeline {
         stage("Docker: Build Images"){
             steps{
                 script{
-                        dir('backend'){
+                        dir('DevOps-Project-40/Devops-Mega-Project-Jenkins-ArgoCD-EKS/backend'){
                             docker_build("wanderlust-backend-beta","${params.BACKEND_DOCKER_TAG}","thatgeekcontainer")
                         }
                     
-                        dir('frontend'){
+                        dir('DevOps-Project-40/Devops-Mega-Project-Jenkins-ArgoCD-EKS/frontend'){
                             docker_build("wanderlust-frontend-beta","${params.FRONTEND_DOCKER_TAG}","thatgeekcontainer")
                         }
                 }
