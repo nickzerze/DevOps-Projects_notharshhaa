@@ -32,7 +32,7 @@ pipeline {
         stage('Git: Code Checkout') {
             steps {
                 script{
-                    code_checkout("https://github.com/NotHarshhaa/DevOps-Projects/DevOps-Project-40/Devops-Mega-Project-Jenkins-ArgoCD-EKS","master")
+                    code_checkout("https://github.com/nickzerze/DevOps-Projects_notharshhaa/DevOps-Project-40/Devops-Mega-Project-Jenkins-ArgoCD-EKS","master")
                 }
             }
         }
