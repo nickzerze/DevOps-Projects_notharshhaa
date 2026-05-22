@@ -1,6 +1,6 @@
 @Library('Shared') _
 pipeline {
-    agent {label 'akbagent'}
+    agent {label 'Node'}
     
     parameters {
         string(name: 'FRONTEND_DOCKER_TAG', defaultValue: '', description: 'Frontend Docker tag of the image built by the CI job')
@@ -19,7 +19,7 @@ pipeline {
         stage('Git: Code Checkout') {
             steps {
                 script{
-                    code_checkout("https://github.com/nickzerze/DevOps-Projects_notharshhaa/DevOps-Project-40/Devops-Mega-Project-Jenkins-ArgoCD-EKS","master")
+                    code_checkout("https://github.com/nickzerze/DevOps-Projects_notharshhaa.git","master")
                 }
             }
         }
@@ -37,15 +37,15 @@ pipeline {
         stage("Update: Kubernetes manifests"){
             steps{
                 script{
-                    dir('kubernetes'){
+                    dir('DevOps-Project-40/Devops-Mega-Project-Jenkins-ArgoCD-EKS/kubernetes'){
                         sh """
-                            sed -i -e 's|image: .*|image: thatgeekcontainer/wanderlust-backend-beta:${params.BACKEND_DOCKER_TAG}|g' backend.yaml
+                            sed -i -e 's|image: .*|image: malware4/wanderlust-backend-beta:${params.BACKEND_DOCKER_TAG}|g' backend.yaml
                         """
                     }
                     
-                    dir('kubernetes'){
+                    dir('DevOps-Project-40/Devops-Mega-Project-Jenkins-ArgoCD-EKS/kubernetes'){
                         sh """
-                            sed -i -e 's|image: .*|image: thatgeekcontainer/wanderlust-frontend-beta:${params.FRONTEND_DOCKER_TAG}|g' frontend.yaml
+                            sed -i -e 's|image: .*|image: malware4/wanderlust-frontend-beta:${params.FRONTEND_DOCKER_TAG}|g' frontend.yaml
                         """
                     }
                     
@@ -68,7 +68,7 @@ pipeline {
                         git commit -m "Updated environment variables"
                         
                         echo "Pushing changes to github: "
-                        git push https://github.com/nickzerze/DevOps-Projects_notharshhaa/DevOps-Project-40/Devops-Mega-Project-Jenkins-ArgoCD-EKS master
+                        git push https://github.com/nickzerze/DevOps-Projects_notharshhaa.git master
                     '''
                     }
                 }
