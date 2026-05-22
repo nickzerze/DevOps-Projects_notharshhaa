@@ -100,11 +100,11 @@ stage('Git: Code Checkout') {
             steps{
                 script{
                         dir('DevOps-Project-40/Devops-Mega-Project-Jenkins-ArgoCD-EKS/backend'){
-                            docker_build("wanderlust-backend-beta","${params.BACKEND_DOCKER_TAG}","thatgeekcontainer")
+                            docker_build("wanderlust-backend-beta","${params.BACKEND_DOCKER_TAG}","malware4")
                         }
                     
                         dir('DevOps-Project-40/Devops-Mega-Project-Jenkins-ArgoCD-EKS/frontend'){
-                            docker_build("wanderlust-frontend-beta","${params.FRONTEND_DOCKER_TAG}","thatgeekcontainer")
+                            docker_build("wanderlust-frontend-beta","${params.FRONTEND_DOCKER_TAG}","malware4")
                         }
                 }
             }
@@ -113,8 +113,8 @@ stage('Git: Code Checkout') {
         stage("Docker: Push to DockerHub"){
             steps{
                 script{
-                    docker_push("wanderlust-backend-beta","${params.BACKEND_DOCKER_TAG}","thatgeekcontainer") 
-                    docker_push("wanderlust-frontend-beta","${params.FRONTEND_DOCKER_TAG}","thatgeekcontainer")
+                    docker_push("wanderlust-backend-beta","${params.BACKEND_DOCKER_TAG}","malware4") 
+                    docker_push("wanderlust-frontend-beta","${params.FRONTEND_DOCKER_TAG}","malware4")
                 }
             }
         }
