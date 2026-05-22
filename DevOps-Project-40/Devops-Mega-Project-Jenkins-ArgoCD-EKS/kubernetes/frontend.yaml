@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: malware4/wanderlust-frontend-beta:front_4
+          image: malware4/wanderlust-frontend-beta:front_5
           ports:
             - containerPort: 80
 ---
